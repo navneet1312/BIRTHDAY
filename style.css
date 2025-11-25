@@ -26,17 +26,17 @@ body {
 
 .cake {
   position: absolute;
-  width: 250px;
+  width: 350px; /* INCREASED */
   height: 200px;
   top: 50%;
   left: 50%;
   margin-top: -70px;
-  margin-left: -125px;
+  margin-left: -175px; /* ADJUSTED FOR CENTERING (350/2) */
 }
 
 .plate {
-  width: 270px;
-  height: 110px;
+  width: 370px; /* INCREASED */
+  height: 130px; /* INCREASED */
   position: absolute;
   bottom: -10px;
   left: -10px;
@@ -52,31 +52,33 @@ body {
 .layer {
   position: absolute;
   display: block;
-  width: 250px;
-  height: 100px;
+  width: 350px; /* INCREASED */
+  height: 120px; /* INCREASED */
   border-radius: 50%;
   background-color: #553c13;
+  /* Shadow values adjusted to maintain stacking appearance */
   box-shadow: 0 2px 0px #6a4b18, 0 4px 0px #33240b, 0 6px 0px #32230b, 0 8px 0px #31230b, 0 10px 0px #30220b, 0 12px 0px #2f220b, 0 14px 0px #2f210a, 0 16px 0px #2e200a, 0 18px 0px #2d200a, 0 20px 0px #2c1f0a, 0 22px 0px #2b1f0a, 0 24px 0px #2a1e09, 0 26px 0px #2a1d09, 0 28px 0px #291d09, 0 30px 0px #281c09;
 }
 
+/* Layer positions adjusted for the increased height of 120px */
 .layer-top {
   top: 0px;
 }
 
 .layer-middle {
-  top: 33px;
+  top: 40px; /* ADJUSTED (approx 120/3) */
 }
 
 .layer-bottom {
-  top: 66px;
+  top: 80px; /* ADJUSTED (approx 2 * 120/3) */
 }
 
 .icing {
   top: 2px;
   left: 5px;
   background-color: #f0e4d0;
-  width: 240px;
-  height: 90px;
+  width: 340px; /* INCREASED */
+  height: 110px; /* INCREASED */
   border-radius: 50%;
 }
 .icing:before {
@@ -102,23 +104,23 @@ body {
 }
 
 .drip1 {
-  top: 53px;
+  top: 65px; /* ADJUSTED */
   left: 5px;
   transform: skewY(15deg);
-  height: 48px;
-  width: 40px;
+  height: 58px; /* ADJUSTED */
+  width: 55px; /* INCREASED */
 }
 
 .drip2 {
-  top: 69px;
-  left: 181px;
+  top: 85px; /* ADJUSTED */
+  left: 255px; /* ADJUSTED */
   transform: skewY(-15deg);
 }
 
 .drip3 {
-  top: 54px;
-  left: 90px;
-  width: 80px;
+  top: 66px; /* ADJUSTED */
+  left: 120px; /* ADJUSTED for center placement on wider cake */
+  width: 110px; /* INCREASED */
   border-bottom-left-radius: 40px;
   border-bottom-right-radius: 40px;
 }
@@ -184,4 +186,30 @@ body {
     transform: skewX(5deg);
     box-shadow: 0 0 10px rgba(255, 165, 0, 0.5), 0 0 20px rgba(255, 165, 0, 0.5), 0 0 60px rgba(255, 165, 0, 0.5), 0 0 80px rgba(255, 165, 0, 0.5);
   }
+}
+
+/* NEW ADDITION: Message Note Styling */
+.message-note {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px 40px;
+  background-color: #f0e4d0; /* Icing color */
+  color: #ad030f; /* Candle color */
+  font-family: 'Arial', sans-serif;
+  font-size: 32px;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(255, 165, 0, 0.8); /* Orange glow */
+  border: 4px solid #553C13;
+  z-index: 100;
+  opacity: 0; /* HIDDEN by default */
+  transition: opacity 1s ease-in-out;
+  pointer-events: none; /* Allows clicks to pass through */
+}
+
+.message-note.show {
+  opacity: 1; /* SHOWN when the 'show' class is added by JS */
 }
