@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   const cake = document.querySelector(".cake");
   const candleCountDisplay = document.getElementById("candleCount");
-  const birthdayMessage = document.getElementById("birthdayMessage"); // NEW LINE
+  const birthdayMessage = document.getElementById("birthdayMessage"); 
   let candles = [];
   let audioContext;
   let analyser;
@@ -37,12 +37,31 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function setInitialCandles(count) {
-    const cakeWidth = 340; // Adjusted for wider cake
-    const cakeHeight = 110;
+    const candlesPerRow = Math.ceil(count / 3); // 7 candles per row for 21 total
+    const cakeWidth = 340; 
+    const padding = 20; 
+    const spacing = (cakeWidth - 2 * padding) / (candlesPerRow - 1); 
 
     for (let i = 0; i < count; i++) {
-      const left = Math.random() * cakeWidth + 5;
-      const top = Math.random() * 40;
+      // Determine row and column index
+      const row = i % 3; // 0, 1, or 2
+      const col = Math.floor(i / 3); // 0, 1, 2, 3, 4, 5, 6
+
+      // Calculate the base alignment position
+      // Left position: Evenly space columns, plus padding
+      const alignedLeft = padding + col * spacing;
+
+      // Top position: Place in one of three aligned rows (0px, 15px, 30px from the top)
+      const alignedTop = 0 + row * 15;
+
+      // Add a small random jitter for a less perfect, more natural look
+      const randomJitterX = Math.random() * 20 - 10; // -10 to +10px
+      const randomJitterY = Math.random() * 10 - 5;  // -5 to +5px
+
+      // Use the aligned position plus the jitter
+      const left = alignedLeft + randomJitterX;
+      const top = alignedTop + randomJitterY;
+      
       addCandle(left, top);
     }
   }
@@ -65,7 +84,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     let average = sum / bufferLength;
 
-    return average > 40; //
+    return average > 40; 
   }
 
   function blowOutCandles() {
@@ -85,6 +104,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+  setInitialCandles(21); 
+
   if (navigator.mediaDevices.getUserMedia) {
     navigator.mediaDevices
       .getUserMedia({ audio: true })
@@ -95,9 +116,6 @@ document.addEventListener("DOMContentLoaded", function () {
         microphone.connect(analyser);
         analyser.fftSize = 256;
         setInterval(blowOutCandles, 200);
-
-        setInitialCandles(21); // Set 21 initial candles
-
       })
       .catch(function (err) {
         console.log("Unable to access microphone: " + err);
