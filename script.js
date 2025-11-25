@@ -1,13 +1,13 @@
 document.addEventListener("DOMContentLoaded", function () {
   const cake = document.querySelector(".cake");
   const candleCountDisplay = document.getElementById("candleCount");
-  // Reference both new message elements
   const birthdayMessage1 = document.getElementById("birthdayMessage1"); 
   const birthdayMessage2 = document.getElementById("birthdayMessage2"); 
   
   // Confetti container setup
   const confettiContainer = document.createElement('div'); 
   confettiContainer.id = 'confetti-container'; 
+  // Append to the element containing the cake (the body or a wrapper)
   cake.parentElement.appendChild(confettiContainer); 
   
   let candles = [];
@@ -23,17 +23,21 @@ document.addEventListener("DOMContentLoaded", function () {
   function launchConfetti() {
     const colors = ["#ffcc00", "#ff6699", "#66ccff", "#99ff99", "#ffffff"]; 
     const totalConfetti = 100;
+    const viewportWidth = window.innerWidth; // Get full screen width
 
     for (let i = 0; i < totalConfetti; i++) {
       const piece = document.createElement("div");
       piece.className = "confetti";
       
-      piece.style.left = (Math.random() * 300) + 100 + "px"; 
+      // Start position: randomly across the full viewport width
+      piece.style.left = (Math.random() * viewportWidth) + "px"; 
+      
       piece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
       piece.style.animationDelay = Math.random() * 0.5 + "s";
       piece.style.transform = `translate(0, -100px) rotate(${Math.random() * 360}deg)`;
       
-      piece.style.setProperty('--end-x', `${Math.random() * 400 - 200}px`);
+      // End position: random horizontal drift
+      piece.style.setProperty('--end-x', `${Math.random() * 600 - 300}px`); 
 
       confettiContainer.appendChild(piece);
     }
