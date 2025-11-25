@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
           
           // C. Show the second message
           birthdayMessage2.classList.add("show");
-        }, 3000); 
+        }, 6000); 
       }
     }
   }
