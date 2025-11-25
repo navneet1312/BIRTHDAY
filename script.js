@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   const cake = document.querySelector(".cake");
   const candleCountDisplay = document.getElementById("candleCount");
+  const birthdayMessage = document.getElementById("birthdayMessage"); // NEW LINE
   let candles = [];
   let audioContext;
   let analyser;
@@ -11,6 +12,13 @@ document.addEventListener("DOMContentLoaded", function () {
       (candle) => !candle.classList.contains("out")
     ).length;
     candleCountDisplay.textContent = activeCandles;
+
+    // CHECK FOR ZERO CANDLES AND SHOW MESSAGE
+    if (activeCandles === 0) {
+      if (birthdayMessage) {
+        birthdayMessage.classList.add("show");
+      }
+    }
   }
 
   function addCandle(left, top) {
@@ -26,6 +34,17 @@ document.addEventListener("DOMContentLoaded", function () {
     cake.appendChild(candle);
     candles.push(candle);
     updateCandleCount();
+  }
+
+  function setInitialCandles(count) {
+    const cakeWidth = 340; // Adjusted for wider cake
+    const cakeHeight = 110;
+
+    for (let i = 0; i < count; i++) {
+      const left = Math.random() * cakeWidth + 5;
+      const top = Math.random() * 40;
+      addCandle(left, top);
+    }
   }
 
   cake.addEventListener("click", function (event) {
@@ -76,6 +95,9 @@ document.addEventListener("DOMContentLoaded", function () {
         microphone.connect(analyser);
         analyser.fftSize = 256;
         setInterval(blowOutCandles, 200);
+
+        setInitialCandles(21); // Set 21 initial candles
+
       })
       .catch(function (err) {
         console.log("Unable to access microphone: " + err);
