@@ -36,29 +36,33 @@ document.addEventListener("DOMContentLoaded", function () {
     updateCandleCount();
   }
 
-  function setInitialCandles(count) {
-    const candlesPerRow = Math.ceil(count / 3); // 7 candles per row for 21 total
-    const cakeWidth = 340; 
-    const padding = 20; 
-    const spacing = (cakeWidth - 2 * padding) / (candlesPerRow - 1); 
+function setInitialCandles(count) {
+    const numRows = 5; 
+    const candlesPerRow = Math.ceil(count / numRows); 
+    
+    // Cake width is 350px. Icing width is 340px (5px padding on each side)
+    const cakeIcingWidth = 340; 
+    const paddingX = 45; // INCREASED inward padding to keep candles off the edge
+    const paddingTop = 5; 
+    const rowSpacing = 20; 
+
+    // Calculate spacing based on inner area
+    const spacingX = (cakeIcingWidth - 2 * paddingX) / (candlesPerRow - 1); 
 
     for (let i = 0; i < count; i++) {
       // Determine row and column index
-      const row = i % 3; // 0, 1, or 2
-      const col = Math.floor(i / 3); // 0, 1, 2, 3, 4, 5, 6
+      const row = i % numRows; 
+      const col = Math.floor(i / numRows);
 
       // Calculate the base alignment position
-      // Left position: Evenly space columns, plus padding
-      const alignedLeft = padding + col * spacing;
+      const alignedLeft = paddingX + col * spacingX;
+      const alignedTop = paddingTop + row * rowSpacing;
 
-      // Top position: Place in one of three aligned rows (0px, 15px, 30px from the top)
-      const alignedTop = 0 + row * 15;
+      // Add a small, tighter random jitter (max +/- 2px)
+      const randomJitterX = Math.random() * 4 - 2; // -2 to +2px
+      const randomJitterY = Math.random() * 4 - 2;  // -2 to +2px
 
-      // Add a small random jitter for a less perfect, more natural look
-      const randomJitterX = Math.random() * 20 - 10; // -10 to +10px
-      const randomJitterY = Math.random() * 10 - 5;  // -5 to +5px
-
-      // Use the aligned position plus the jitter
+      // Final position (relative to the 350px .cake container)
       const left = alignedLeft + randomJitterX;
       const top = alignedTop + randomJitterY;
       
