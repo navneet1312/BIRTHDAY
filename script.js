@@ -40,11 +40,11 @@ function setInitialCandles(count) {
     const numRows = 5; 
     const candlesPerRow = Math.ceil(count / numRows); 
     
-    // Cake width is 350px. Icing width is 340px (5px padding on each side)
+    // Cake width is 350px. Icing width is ~340px (relative to the container)
     const cakeIcingWidth = 340; 
-    const paddingX = 45; // INCREASED inward padding to keep candles off the edge
+    const paddingX = 60; // <<< INCREASED significantly to push candles inward
     const paddingTop = 5; 
-    const rowSpacing = 20; 
+    const rowSpacing = 22; // Slight increase for better vertical separation
 
     // Calculate spacing based on inner area
     const spacingX = (cakeIcingWidth - 2 * paddingX) / (candlesPerRow - 1); 
@@ -58,9 +58,9 @@ function setInitialCandles(count) {
       const alignedLeft = paddingX + col * spacingX;
       const alignedTop = paddingTop + row * rowSpacing;
 
-      // Add a small, tighter random jitter (max +/- 2px)
-      const randomJitterX = Math.random() * 4 - 2; // -2 to +2px
-      const randomJitterY = Math.random() * 4 - 2;  // -2 to +2px
+      // Add minimal random jitter (max +/- 1px)
+      const randomJitterX = Math.random() * 2 - 1; // -1 to +1px
+      const randomJitterY = Math.random() * 2 - 1;  // -1 to +1px
 
       // Final position (relative to the 350px .cake container)
       const left = alignedLeft + randomJitterX;
